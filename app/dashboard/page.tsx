@@ -334,11 +334,7 @@ export default function Dashboard() {
     }
 
     // Determine company type from email
-    const userCompanyType = user?.email.includes("@hotels.virgin.com")
-      ? "hotels"
-      : user?.email.includes("@flights.virgin.com")
-        ? "flights"
-        : "media"
+    const userCompanyType = "hotels"
 
     setCompanyType(userCompanyType)
 
@@ -469,7 +465,7 @@ export default function Dashboard() {
         <div className="space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900">My Projects Overview</h2>
-            <Link href="/dashboard/goals" passHref>
+            <Link href="/analytics" passHref>
               <Button variant="ghost" size="sm" className="text-red-600">
                 View All <ChevronRight className="ml-1 h-4 w-4" />
               </Button>
@@ -535,7 +531,7 @@ export default function Dashboard() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold text-gray-900">Collaboration Suggestions</h2>
-              <Link href="/dashboard/discover" passHref>
+              <Link href="/discover" passHref>
                 <Button variant="ghost" size="sm" className="text-red-600">
                   Discover More <ChevronRight className="ml-1 h-4 w-4" />
                 </Button>

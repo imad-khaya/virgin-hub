@@ -13,6 +13,8 @@ import {
   Users,
   Sparkles,
   LineChart,
+  Briefcase,
+  Earth,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -78,50 +80,34 @@ export default function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/dashboard/goals")}>
-              <Link href="/dashboard/goals">
-                <Target className="h-5 w-5" />
-                <span>View Goals</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/dashboard/add-goal")}>
-              <Link href="/dashboard/add-goal">
-                <ListTodo className="h-5 w-5" />
-                <span>Add Goal</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/dashboard/discover")}>
-              <Link href="/dashboard/discover">
-                <Sparkles className="h-5 w-5" />
-                <span>Discover & Connect</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={isActive("/dashboard/analytics")}>
-              <Link href="/dashboard/analytics">
+            <SidebarMenuButton asChild isActive={isActive("/analytics")}>
+              <Link href="/analytics">
                 <LineChart className="h-5 w-5" />
                 <span>Impact Analytics</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="#">
-                <BarChart className="h-5 w-5" />
-                <span>Reports</span>
+            <SidebarMenuButton asChild isActive={isActive("/initiative-management")}>
+                <Link href="/initiative-management">
+                  <Briefcase className="h-5 w-5" />
+                  <span>Initiative Management</span>
+                </Link>
+              </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={isActive("/discover")}>
+              <Link href="/discover">
+                <Sparkles className="h-5 w-5" />
+                <span>Discover & Connect</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
               <Link href="#">
-                <Users className="h-5 w-5" />
-                <span>Subcompanies</span>
+                <Earth className="h-5 w-5" />
+                <span>World Impact</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
