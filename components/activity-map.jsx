@@ -47,12 +47,18 @@ const ActivityMap = () => {
       .catch((error) => console.error("Error fetching GeoJSON data:", error));
   }, []);
 
-  const getCountryColor = (countryCode) => {
-    if (!activityData[countryCode]) {
+  const getCountryColor = (countryName) => {
+    // Find the ISO code corresponding to the country name in sampleActivityData
+    const countryData = Object.values(activityData).find((data) => data.name === countryName);
+    
+    if (!countryData) {
+      console.log(`No data for countryName: ${countryName}`);
       return "#e0e0e0"; // Default gray for countries with no data
     }
   
-    const level = activityData[countryCode].level;
+    const { level } = countryData;
+  
+    console.log(`Country: ${countryName}, Level: ${level}, Filter: ${activityFilter}`);
   
     // Apply the correct color based on the activity level and filter
     if (activityFilter !== "all" && level !== activityFilter) {
@@ -72,7 +78,7 @@ const ActivityMap = () => {
   };
   
   
-
+  
   const getFilteredCountries = () => {
     if (!activityData) return []; // Ensure data is available
     if (activityFilter === "all") {
@@ -114,17 +120,51 @@ const ActivityMap = () => {
       {/* World Map */}
       <div className="w-full h-96 border border-gray-300 rounded-lg overflow-hidden relative bg-blue-50">
         {geoData ? (
-          <ComposableMap projection="geoMercator" width={1000} height={500}>
+          <ComposableMap projection="geoMercator" width={1000} height={500} key={activityFilter}>
             <Geographies geography={geoData.features ? geoData.features : []}>
               {({ geographies }) =>
                 geographies.map((geo) => {
-                  const countryCode = geo.properties.ISO_A3;
+                  const countryName = geo.properties.name; // Use name directly
 
                   return (
                     <Geography
                       key={geo.rsmKey}
                       geography={geo}
-                      fill={activityFilter}
+                      fill={getCountryColor(countryName)}  // Pass country name to get the correct color
+                      stroke="#fff"
+                      strokeWidth="0.5"
+                      onMouseEnter={() =>
+                        setHoveredCountry({
+                          code: geo.properties.ISO_A3,
+                          name: geo.properties.name,
+                          data: activityData[geo.properties.ISO_A3],
+                        })
+                      }
+                      onMouseLeave={() => setHoveredCountry(null)}
+                    />
+                  );
+                })
+              }
+            </Geographies>
+
+            {/* <Geographies geography={geoData.features ? geoData.features : []}>
+              {({ geographies }) =>
+                geographies.map((geo) => {
+                  console.log("geo properties: ", geo.properties);
+                  console.log("geo data: ", geoData);
+                  const countryCode = geo.properties.ISO_A3 || "UNKNOWN";
+                  const activityDataCode = activityData[countryCode];
+
+                  if (!activityDataCode) {
+                    console.log(`No data for countryCode: ${countryCode}`);
+                    return "#e0e0e0";  // Return default color if no data
+                  }
+
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill={getCountryColor(countryCode)}
                       stroke="#fff"
                       strokeWidth="0.5"
                       onMouseEnter={() =>
@@ -139,7 +179,7 @@ const ActivityMap = () => {
                   );
                 })
               }
-            </Geographies>
+            </Geographies> */}
           </ComposableMap>
         ) : (
           <div className="flex items-center justify-center h-64">Loading map data...</div>
