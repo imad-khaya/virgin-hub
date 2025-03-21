@@ -4,6 +4,7 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { AuthProvider } from "@/lib/auth-context"
 import { Toaster } from "@/components/toaster"
 import Sidebar from "@/components/sidebar"
+import 'leaflet/dist/leaflet.css';
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })

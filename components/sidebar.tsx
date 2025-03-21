@@ -115,9 +115,9 @@ export default function AppSidebar() {
           </SidebarMenuItem>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
-              <Link href="#">
+              <Link href="/activity-map">
                 <Earth className="h-5 w-5" />
-                <span>World Impact</span>
+                <span>Activity Map</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
