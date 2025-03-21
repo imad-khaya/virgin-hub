@@ -1,6 +1,7 @@
 "use client"
 
 import type React from "react"
+import Image from 'next/image'
 
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
@@ -11,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Progress } from "@/components/ui/progress"
 import { useAuth } from "@/lib/auth-context"
+import VirginLogo from "@/assets/images/virgin_logo.png"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -33,7 +35,7 @@ export default function LoginPage() {
 
     if (!email) {
       newErrors.email = "Email is required"
-    } else if (!email.includes("@virgin.com")) {
+    } else if (!email.includes(".virgin.com")) {
       newErrors.email = "Please use your Virgin company email"
     }
 
@@ -84,13 +86,18 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <Card className="w-full max-w-md">
-        <CardHeader className="space-y-1 bg-red-50">
-          <div className="flex justify-center mb-4">
-            <div className="h-12 w-12 rounded-full bg-red-600 flex items-center justify-center">
-              <Flag className="h-6 w-6 text-white" />
-            </div>
+        <CardHeader className="space-y-1 bg-red- flex items-center justify-center flex-col">
+          <div 
+            className="logo-container flex justify-center align-center mb-4 p-1"
+          >
+              <Image
+                src={VirginLogo}
+                alt="Picture of the author"
+                height={100}
+                width={100}
+              />
           </div>
-          <CardTitle className="text-2xl text-center text-red-600">Virgin Company Hub</CardTitle>
+          <CardTitle className="text-2xl text-center text-red-600">Virgin Hub</CardTitle>
           <CardDescription className="text-center">Sign in to access your subcompany dashboard</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

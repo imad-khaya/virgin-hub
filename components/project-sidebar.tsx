@@ -42,33 +42,6 @@ export function ProjectSidebar({ selectedProject }: SidebarProps) {
         </CardContent>
       </Card>
 
-      <Card className="mb-6">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
-            <LineChart className="h-4 w-4" />
-            <span>Progress Over Time</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-40 flex items-center justify-center bg-muted/50 rounded-md">
-            <p className="text-sm text-muted-foreground">Progress chart visualization</p>
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="mb-6">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-sm font-medium flex items-center gap-2">
-            <BarChart className="h-4 w-4" />
-            <span>Impact Metrics</span>
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="h-40 flex items-center justify-center bg-muted/50 rounded-md">
-            <p className="text-sm text-muted-foreground">Impact metrics visualization</p>
-          </div>
-        </CardContent>
-      </Card>
 
       {selectedProject.collaborators && selectedProject.collaborators.length > 0 && (
         <Card>

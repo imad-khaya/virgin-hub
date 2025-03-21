@@ -1,4 +1,6 @@
 "use client"
+import type React from "react"
+import Image from 'next/image'
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import {
@@ -29,6 +31,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { useAuth } from "@/lib/auth-context"
+import VirginLogo from "@/assets/images/virgin_logo.png"
 
 export default function AppSidebar() {
   const pathname = usePathname()
@@ -57,10 +60,17 @@ export default function AppSidebar() {
       <SidebarHeader className="border-b border-gray-200 py-3">
         <div className="flex items-center px-4">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-md bg-red-600 flex items-center justify-center">
+            <Image
+                src={VirginLogo}
+                alt="Picture of the author"
+                height={60}
+                width={60}
+              />
+
+            {/* <div className="h-8 w-8 rounded-md bg-red-600 flex items-center justify-center">
               <Flag className="h-4 w-4 text-white" />
             </div>
-            <span className="text-lg font-bold text-red-600">{companyType}</span>
+            <span className="text-lg font-bold text-red-600">{companyType}</span> */}
           </div>
           {isMobile && (
             <SidebarTrigger className="ml-auto">

@@ -510,7 +510,7 @@ export default function Dashboard() {
                   </div>
                 </CardContent>
                 <CardFooter className="pt-0">
-                  <Link href={`/dashboard/goals/${project.id}`} passHref className="w-full">
+                  <Link href={`analytics`} passHref className="w-full">
                     <Button variant="outline" className="w-full text-red-600 border-red-200 hover:bg-red-50">
                       View Details <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -520,8 +520,8 @@ export default function Dashboard() {
             ))}
           </div>
 
-          <Link href="/dashboard/add-goal" passHref>
-            <Button className="w-full bg-red-600 hover:bg-red-700">Add New Project</Button>
+          <Link href="/initiative-management" passHref>
+            <Button className="w-full bg-red-600 hover:bg-red-700">Add New Initiative</Button>
           </Link>
         </div>
 

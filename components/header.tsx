@@ -31,7 +31,7 @@ export function Header({
         <div className="flex items-center">
           <h1 className="text-2xl font-bold text-virgin-red">Project Management</h1>
         </div>
-        <Button onClick={onAddProject} className="bg-virgin-red hover:bg-virgin-red/90 text-white">
+        <Button onClick={onAddProject} className="flex items-center bg-red-600 hover:bg-red-600/70 text-white hover:text-white/70">
           <Plus className="mr-2 h-4 w-4" />
           Add New Project
         </Button>

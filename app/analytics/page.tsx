@@ -44,51 +44,52 @@ import {
 const projectsData = [
   {
     id: 1,
-    title: "Flight100 - Sustainable Aviation",
-    description: "World's first 100% sustainable aviation fuel flight from London to New York",
-    company: "Virgin Atlantic",
-    collaborators: ["Virgin Voyages", "Virgin Unite"],
+    title: "Sustainable Hotel Operations",
+    description: "Comprehensive sustainability program across all Virgin Hotels properties",
+    company: "Virgin Hotels",
+    collaborators: ["Virgin Voyages"],
     metrics: {
-      co2Saved: 95, // tonnes
-      customerEngagement: 1250,
-      sustainabilityScore: 85,
+      co2Saved: 850, // tonnes
+      waterSaved: 15000000, // liters
+      customerEngagement: 3500,
+      sustainabilityScore: 88,
     },
     lineChartData: [
-      { month: "Nov", co2Saved: 0 },
-      { month: "Dec", co2Saved: 25 },
-      { month: "Jan", co2Saved: 45 },
-      { month: "Feb", co2Saved: 65 },
-      { month: "Mar", co2Saved: 95 },
+      { month: "Nov", co2: 500 },
+      { month: "Dec", co2: 600 },
+      { month: "Jan", co2: 700 },
+      { month: "Feb", co2: 800 },
+      { month: "Mar", co2: 850 },
     ],
     barChartData: [
-      { category: "Fuel", reduction: 70 },
-      { category: "Operations", reduction: 15 },
-      { category: "Materials", reduction: 10 },
+      { category: "Energy", savings: 400 },
+      { category: "Water", savings: 250 },
+      { category: "Waste", savings: 200 },
     ],
     customerData: {
-      signups: 100,
-      shares: 350,
-      donations: 50,
-      volunteers: 25,
+      optIns: 2000,
+      feedbackSubmissions: 800,
+      programParticipants: 700,
+      referrals: 450,
     },
     collaborationImpact: {
-      soloImpact: 95,
-      withCollaborators: 150,
+      soloImpact: 850,
+      withCollaborators: 1100,
       pieData: [
-        { name: "Virgin Atlantic", value: 95 },
-        { name: "Virgin Voyages", value: 40 },
-        { name: "Virgin Unite", value: 15 },
+        { name: "Virgin Hotels", value: 850 },
+        { name: "Virgin Voyages", value: 250 },
       ],
     },
-    challenge: "Contrails account for 57% of aviation's climate impact",
+    challenge: "Hotels account for 1% of global carbon emissions",
     status: "In Progress",
-    type: "Environmental",
-    startDate: "2023-11-28",
-    targetDate: "2024-12-31",
-    targetMetric: 200, // tonnes CO2
-    progress: 47.5, // percentage
-    company_type: "flights",
+    type: "Operational",
+    startDate: "2023-06-15",
+    targetDate: "2024-06-15",
+    targetMetric: 1200, // tonnes CO2
+    progress: 70.8, // percentage
+    company_type: "hotels",
   },
+  
   {
     id: 2,
     title: "Mangrove Restoration Project",
@@ -234,50 +235,50 @@ const projectsData = [
   },
   {
     id: 5,
-    title: "Sustainable Hotel Operations",
-    description: "Comprehensive sustainability program across all Virgin Hotels properties",
-    company: "Virgin Hotels",
-    collaborators: ["Virgin Voyages"],
+    title: "Flight100 - Sustainable Aviation",
+    description: "World's first 100% sustainable aviation fuel flight from London to New York",
+    company: "Virgin Atlantic",
+    collaborators: ["Virgin Voyages", "Virgin Unite"],
     metrics: {
-      co2Saved: 850, // tonnes
-      waterSaved: 15000000, // liters
-      customerEngagement: 3500,
-      sustainabilityScore: 88,
+      co2Saved: 95, // tonnes
+      customerEngagement: 1250,
+      sustainabilityScore: 85,
     },
     lineChartData: [
-      { month: "Nov", co2: 500 },
-      { month: "Dec", co2: 600 },
-      { month: "Jan", co2: 700 },
-      { month: "Feb", co2: 800 },
-      { month: "Mar", co2: 850 },
+      { month: "Nov", co2Saved: 0 },
+      { month: "Dec", co2Saved: 25 },
+      { month: "Jan", co2Saved: 45 },
+      { month: "Feb", co2Saved: 65 },
+      { month: "Mar", co2Saved: 95 },
     ],
     barChartData: [
-      { category: "Energy", savings: 400 },
-      { category: "Water", savings: 250 },
-      { category: "Waste", savings: 200 },
+      { category: "Fuel", reduction: 70 },
+      { category: "Operations", reduction: 15 },
+      { category: "Materials", reduction: 10 },
     ],
     customerData: {
-      optIns: 2000,
-      feedbackSubmissions: 800,
-      programParticipants: 700,
-      referrals: 450,
+      signups: 100,
+      shares: 350,
+      donations: 50,
+      volunteers: 25,
     },
     collaborationImpact: {
-      soloImpact: 850,
-      withCollaborators: 1100,
+      soloImpact: 95,
+      withCollaborators: 150,
       pieData: [
-        { name: "Virgin Hotels", value: 850 },
-        { name: "Virgin Voyages", value: 250 },
+        { name: "Virgin Atlantic", value: 95 },
+        { name: "Virgin Voyages", value: 40 },
+        { name: "Virgin Unite", value: 15 },
       ],
     },
-    challenge: "Hotels account for 1% of global carbon emissions",
+    challenge: "Contrails account for 57% of aviation's climate impact",
     status: "In Progress",
-    type: "Operational",
-    startDate: "2023-06-15",
-    targetDate: "2024-06-15",
-    targetMetric: 1200, // tonnes CO2
-    progress: 70.8, // percentage
-    company_type: "hotels",
+    type: "Environmental",
+    startDate: "2023-11-28",
+    targetDate: "2024-12-31",
+    targetMetric: 200, // tonnes CO2
+    progress: 47.5, // percentage
+    company_type: "flights",
   },
 ]
 
