@@ -1,5 +1,4 @@
 
-// pages/index.js
 import ActivityMap from '@/components/activity-map';
 
 export default function Home() {

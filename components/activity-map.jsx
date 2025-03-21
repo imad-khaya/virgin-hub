@@ -1,229 +1,70 @@
 "use client"; // Mark this as a client component
 
-import React, { useState, useEffect } from "react";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
+import React, { useEffect, useRef } from 'react';
+import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-const geoUrl = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
+const companies = [
+  { id: 1, title: "Increase Customer Satisfaction", description: "Improve NPS score by 15%", location: [-95.7129, 37.0902], country: 'USA' },
+  { id: 2, title: "Reduce Carbon Footprint", description: "Decrease carbon emissions by 25%", location: [-95.7, 37.5], country: 'USA' },
+  { id: 3, title: "Launch New Digital Platform", description: "Create unified digital experience", location: [113.9213, -0.7893], country: 'Indonesia' },
+  { id: 4, title: "Expand Market Presence", description: "Enter three new markets in Asia Pacific", location: [104.1954, 35.8617], country: 'China' },
+  { id: 5, title: "Enhance Employee Wellbeing", description: "Implement comprehensive wellbeing program", location: [100.9925, 15.8700], country: 'Thailand' },
+  { id: 6, title: "Optimize Flight Routes", description: "Reduce flight times and fuel consumption", location: [2.2137, 46.6034], country: 'France' },
+  { id: 7, title: "Enhance Guest Experience", description: "Implement new guest services", location: [10.4515, 51.1657], country: 'Germany' },
+  { id: 8, title: "Modernize Aircraft Fleet", description: "Replace aircraft with fuel-efficient models", location: [-3.435973, 55.378051], country: 'United Kingdom' },
+  { id: 9, title: "Develop Sustainable Tourism Packages", description: "Create eco-friendly tourism packages", location: [137.725, 35.7436], country: 'Japan' },
+  { id: 10, title: "Implement AI-Powered Customer Service", description: "Deploy AI chatbots for 24/7 support", location: [133.7751, -25.2744], country: 'Australia' },
+  { id: 11, title: "Urban Green Spaces", description: "Increase green spaces in urban areas", location: [127.7669, 35.9078], country: 'South Korea' },
+  { id: 12, title: "Circular Economy", description: "Create circular economy initiatives", location: [12.5674, 41.8719], country: 'Italy' },
+  { id: 13, title: "Sustainable Tourism", description: "Promote eco-friendly tourism", location: [-3.7038, 40.4168], country: 'Spain' },
+  { id: 14, title: "Energy Access", description: "Increase energy access in rural areas", location: [9.082, 8.6753], country: 'Nigeria' },
+  { id: 15, title: "Marine Conservation", description: "Protect marine biodiversity", location: [113.9213, -0.7893], country: 'Indonesia' },
+  { id: 16, title: "Renewable Energy Transition", description: "Transition to renewable energy sources", location: [-106.3468, 56.1304], country: 'Canada' },
+  { id: 17, title: "Clean Water Access", description: "Ensure clean water access for communities", location: [22.9375, -30.5595], country: 'South Africa' },
+  { id: 18, title: "Sustainable Agriculture", description: "Promote sustainable farming practices", location: [-95.7129, 37.0902], country: 'USA' },
+  { id: 19, title: "Deforestation Prevention", description: "Prevent deforestation and land degradation", location: [113.9213, -0.7893], country: 'Indonesia' },
+  { id: 20, title: "Green Energy", description: "Invest in green energy technologies", location: [104.1954, 35.8617], country: 'China' },
+];
 
 const ActivityMap = () => {
-  const [activityData, setActivityData] = useState({});
-  const [activityFilter, setActivityFilter] = useState("all");
-  const [loading, setLoading] = useState(true);
-  const [geoData, setGeoData] = useState(null); // State to hold the map data
-
-  // Sample activity data for countries (using ISO codes)
-  const sampleActivityData = {
-    "US": { name: "United States", level: "high", value: 87 },
-    "CA": { name: "Canada", level: "medium", value: 65 },
-    "MX": { name: "Mexico", level: "medium", value: 58 },
-    "BR": { name: "Brazil", level: "high", value: 92 },
-    "AR": { name: "Argentina", level: "low", value: 34 },
-    "GB": { name: "United Kingdom", level: "high", value: 84 },
-    "FR": { name: "France", level: "medium", value: 62 },
-    "DE": { name: "Germany", level: "high", value: 78 },
-    "ES": { name: "Spain", level: "medium", value: 55 },
-    "IT": { name: "Italy", level: "low", value: 42 },
-    "RU": { name: "Russia", level: "medium", value: 60 },
-    "CN": { name: "China", level: "high", value: 95 },
-    "IN": { name: "India", level: "high", value: 89 },
-    "JP": { name: "Japan", level: "medium", value: 67 },
-    "AU": { name: "Australia", level: "low", value: 45 },
-    "ZA": { name: "South Africa", level: "low", value: 38 },
-    "EG": { name: "Egypt", level: "low", value: 30 },
-    "NG": { name: "Nigeria", level: "medium", value: 52 },
-  };
+  const mapContainerRef = useRef();
+  const mapRef = useRef();
 
   useEffect(() => {
-    // Simulate data loading
-    setTimeout(() => {
-      setActivityData(sampleActivityData);
-      setLoading(false);
-    }, 1000);
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaW1hZGtoYXlhIiwiYSI6ImNtOGkwdms4cDA3dWsyanM1bXFldW81c3oifQ.ztO22y2DlH9fTaSJDPgCrw';
 
-    // Fetch GeoJSON data for the world map
-    fetch(geoUrl)
-      .then((response) => response.json())
-      .then((data) => setGeoData(data))
-      .catch((error) => console.error("Error fetching GeoJSON data:", error));
+    mapRef.current = new mapboxgl.Map({
+      container: mapContainerRef.current,
+      style: 'mapbox://styles/mapbox/light-v11',
+      center: [-103.5917, 40.6699],
+      zoom: 3
+    });
+
+    mapRef.current.on('load', () => {
+      companies.forEach(company => {
+        // Add a marker for each company
+        new mapboxgl.Marker({
+          color: '#ff0000', // Choose a color for the marker
+          scale: 1 // Scale the marker size
+        })
+          .setLngLat(company.location)
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }).setHTML(`
+              <h1>${company.title}</h1>
+              <p>${company.description}</p>
+              <p>Location: ${company.country}</p>
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Connect</button>
+            `)
+          )
+          .addTo(mapRef.current);
+      });
+    });
+
+    return () => mapRef.current.remove();
   }, []);
 
-  const getCountryColor = (countryName) => {
-    // Find the ISO code corresponding to the country name in sampleActivityData
-    const countryData = Object.values(activityData).find((data) => data.name === countryName);
-    
-    if (!countryData) {
-      console.log(`No data for countryName: ${countryName}`);
-      return "#e0e0e0"; // Default gray for countries with no data
-    }
-  
-    const { level } = countryData;
-  
-    console.log(`Country: ${countryName}, Level: ${level}, Filter: ${activityFilter}`);
-  
-    // Apply the correct color based on the activity level and filter
-    if (activityFilter !== "all" && level !== activityFilter) {
-      return "#e0e0e0"; // Gray out countries that don't match the filter
-    }
-  
-    switch (level) {
-      case "high":
-        return "#4CAF50"; // Green for high activity
-      case "medium":
-        return "#FFC107"; // Yellow for medium activity
-      case "low":
-        return "#F44336"; // Red for low activity
-      default:
-        return "#e0e0e0"; // Default gray for unknown or no data
-    }
-  };
-  
-  
-  
-  const getFilteredCountries = () => {
-    if (!activityData) return []; // Ensure data is available
-    if (activityFilter === "all") {
-      return Object.entries(activityData || {});
-    }
-    return Object.entries(activityData).filter(([_, data]) => data.level === activityFilter);
-  };
-  
-
-  const [hoveredCountry, setHoveredCountry] = useState(null);
-
-  if (loading || !geoData) {
-    return <div className="flex items-center justify-center h-64">Loading map data...</div>;
-  }
-  
-  return (
-    <div className="bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-4">Global Activity Map</h2>
-
-      {/* Filter controls */}
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Filter by Activity Level:</h3>
-        <div className="flex space-x-2">
-          <button onClick={() => setActivityFilter("all")} className={`px-4 py-2 rounded ${activityFilter === "all" ? "bg-blue-600 text-white" : "bg-gray-200"}`}>
-            All
-          </button>
-          <button onClick={() => setActivityFilter("high")} className={`px-4 py-2 rounded flex items-center ${activityFilter === "high" ? "bg-blue-600 text-white" : "bg-gray-200"}`}>
-            <span className="w-3 h-3 bg-green-500 rounded-full mr-2"></span>High
-          </button>
-          <button onClick={() => setActivityFilter("medium")} className={`px-4 py-2 rounded flex items-center ${activityFilter === "medium" ? "bg-blue-600 text-white" : "bg-gray-200"}`}>
-            <span className="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>Medium
-          </button>
-          <button onClick={() => setActivityFilter("low")} className={`px-4 py-2 rounded flex items-center ${activityFilter === "low" ? "bg-blue-600 text-white" : "bg-gray-200"}`}>
-            <span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>Low
-          </button>
-        </div>
-      </div>
-
-      {/* World Map */}
-      <div className="w-full h-96 border border-gray-300 rounded-lg overflow-hidden relative bg-blue-50">
-        {geoData ? (
-          <ComposableMap projection="geoMercator" width={1000} height={500} key={activityFilter}>
-            <Geographies geography={geoData.features ? geoData.features : []}>
-              {({ geographies }) =>
-                geographies.map((geo) => {
-                  const countryName = geo.properties.name; // Use name directly
-
-                  return (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill={getCountryColor(countryName)}  // Pass country name to get the correct color
-                      stroke="#fff"
-                      strokeWidth="0.5"
-                      onMouseEnter={() =>
-                        setHoveredCountry({
-                          code: geo.properties.ISO_A3,
-                          name: geo.properties.name,
-                          data: activityData[geo.properties.ISO_A3],
-                        })
-                      }
-                      onMouseLeave={() => setHoveredCountry(null)}
-                    />
-                  );
-                })
-              }
-            </Geographies>
-
-            {/* <Geographies geography={geoData.features ? geoData.features : []}>
-              {({ geographies }) =>
-                geographies.map((geo) => {
-                  console.log("geo properties: ", geo.properties);
-                  console.log("geo data: ", geoData);
-                  const countryCode = geo.properties.ISO_A3 || "UNKNOWN";
-                  const activityDataCode = activityData[countryCode];
-
-                  if (!activityDataCode) {
-                    console.log(`No data for countryCode: ${countryCode}`);
-                    return "#e0e0e0";  // Return default color if no data
-                  }
-
-                  return (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill={getCountryColor(countryCode)}
-                      stroke="#fff"
-                      strokeWidth="0.5"
-                      onMouseEnter={() =>
-                        setHoveredCountry({
-                          code: countryCode,
-                          name: geo.properties.NAME,
-                          data: activityData[countryCode],
-                        })
-                      }
-                      onMouseLeave={() => setHoveredCountry(null)}
-                    />
-                  );
-                })
-              }
-            </Geographies> */}
-          </ComposableMap>
-        ) : (
-          <div className="flex items-center justify-center h-64">Loading map data...</div>
-        )}
-      </div>
-
-      {/* Country list with activity levels */}
-      <div className="mt-6">
-        <h3 className="text-lg font-semibold mb-2">Countries by Activity Level:</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-          {getFilteredCountries().map(([code, data]) => (
-            data ? (
-              <div key={code} className={`p-3 rounded-lg flex items-center justify-between ${data.level === "high" ? "bg-green-100" : data.level === "medium" ? "bg-yellow-100" : "bg-red-100"}`}>
-                <div>
-                  <span className="font-medium">{data.name}</span>
-                  <div className="text-sm text-gray-600">Activity: {data.value}%</div>
-                </div>
-                <div className={`w-3 h-3 rounded-full ${data.level === "high" ? "bg-green-500" : data.level === "medium" ? "bg-yellow-500" : "bg-red-500"}`}></div>
-              </div>
-            ) : null
-          ))}
-        </div>
-      </div>
-
-      {/* Stats */}
-      <div className="mt-6">
-        <h3 className="text-lg font-semibold mb-2">Statistics:</h3>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="bg-green-100 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">High Activity Countries</p>
-            <p className="text-2xl font-bold">{Object.values(activityData).filter((d) => d.level === "high").length}</p>
-          </div>
-          <div className="bg-yellow-100 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">Medium Activity Countries</p>
-            <p className="text-2xl font-bold">{Object.values(activityData).filter((d) => d.level === "medium").length}</p>
-          </div>
-          <div className="bg-red-100 p-4 rounded-lg">
-            <p className="text-sm text-gray-600">Low Activity Countries</p>
-            <p className="text-2xl font-bold">{Object.values(activityData).filter((d) => d.level === "low").length}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <div id="map" ref={mapContainerRef} style={{ height: '100vh' }}></div>;
 };
 
 export default ActivityMap;
